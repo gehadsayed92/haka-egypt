@@ -27,10 +27,12 @@ export default function AdminEventsPage() {
       .from('events')
       .select('*, rsvp_count:rsvps(count)')
       .order('date', { ascending: false });
+
     const formatted = (data || []).map(e => ({
       ...e,
       rsvp_count: e.rsvp_count?.[0]?.count ?? 0,
     }));
+
     setEvents(formatted);
     setLoading(false);
   };
@@ -46,23 +48,24 @@ export default function AdminEventsPage() {
     }
   };
 
+  // ✅ FIXED: all render now use (row: any)
   const columns = [
     { key: 'title', header: 'Title' },
     {
       key: 'date',
       header: 'Date',
-      render: (row: any) =>  formatDate(row.date),
+      render: (row: any) => formatDate(row.date),
     },
     { key: 'location', header: 'Location' },
     {
       key: 'capacity',
       header: 'Capacity',
-      render: (row: Event) => `${row.rsvp_count ?? 0} / ${row.capacity}`,
+      render: (row: any) => `${row.rsvp_count ?? 0} / ${row.capacity}`,
     },
     {
       key: 'status',
       header: 'Status',
-      render: (row: Event) => {
+      render: (row: any) => {
         const isPast = new Date(row.date) < new Date();
         return (
           <Badge variant={isPast ? 'default' : 'success'}>
@@ -74,7 +77,7 @@ export default function AdminEventsPage() {
     {
       key: 'actions',
       header: 'Actions',
-      render: (row: Event) => (
+      render: (row: any) => (
         <div className="flex gap-2">
           <button
             onClick={() => { setEditingEvent(row); setShowForm(true); }}
