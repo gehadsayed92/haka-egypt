@@ -51,7 +51,7 @@ export default function AdminEventsPage() {
     {
       key: 'date',
       header: 'Date',
-      render: (row: Event) => formatDate(row.date),
+      render: (row: any) =>  formatDate(row.date),
     },
     { key: 'location', header: 'Location' },
     {
