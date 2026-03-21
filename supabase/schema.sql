@@ -64,6 +64,42 @@ CREATE POLICY "Users can manage own RSVPs" ON public.rsvps FOR INSERT WITH CHECK
 CREATE POLICY "Users can update own RSVPs" ON public.rsvps FOR UPDATE USING (auth.uid() = user_id);
 CREATE POLICY "Users can delete own RSVPs" ON public.rsvps FOR DELETE USING (auth.uid() = user_id);
 
+-- Padel Registrations table (stores join flow submissions)
+CREATE TABLE public.padel_registrations (
+  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  event_id TEXT NOT NULL,
+  event_title TEXT NOT NULL DEFAULT '',
+  name TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  email TEXT,
+  level TEXT CHECK (level IN ('Beginner', 'Intermediate', 'Advanced', 'All Levels')) NOT NULL,
+  position TEXT CHECK (position IN ('left', 'right', 'both')),
+  experience TEXT,
+  can_rally TEXT,
+  play_type TEXT,
+  self_rating INTEGER,
+  payment_proof_url TEXT,
+  payment_status TEXT CHECK (payment_status IN ('pending', 'approved', 'rejected')) DEFAULT 'pending',
+  notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Allow anyone to insert (no auth required for registration flow)
+ALTER TABLE public.padel_registrations ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Anyone can submit registration" ON public.padel_registrations FOR INSERT WITH CHECK (true);
+CREATE POLICY "Admins can view all registrations" ON public.padel_registrations FOR SELECT USING (
+  EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
+);
+CREATE POLICY "Admins can update registration status" ON public.padel_registrations FOR UPDATE USING (
+  EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true)
+);
+
+-- Storage bucket for payment proofs (run in Supabase dashboard: Storage > New bucket > "payment-proofs", public = false)
+-- Or via SQL:
+-- INSERT INTO storage.buckets (id, name, public) VALUES ('payment-proofs', 'payment-proofs', false);
+-- CREATE POLICY "Anon upload payment proofs" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'payment-proofs');
+-- CREATE POLICY "Admins view payment proofs" ON storage.objects FOR SELECT USING (bucket_id = 'payment-proofs' AND EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true));
+
 -- Function to handle new user creation
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$

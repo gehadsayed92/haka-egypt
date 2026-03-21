@@ -22,44 +22,39 @@ export function Navbar() {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/events', label: 'Events' },
+    { href: '/events', label: 'Matches' },
   ];
 
   return (
-    <nav
-      className={cn(
-        'sticky top-0 z-40 transition-all duration-300',
-        scrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100'
-          : 'bg-white border-b border-gray-100'
-      )}
-    >
+    <nav className={cn(
+      'sticky top-0 z-40 transition-all duration-500',
+      scrolled
+        ? 'bg-[#06100a]/96 backdrop-blur-md shadow-lg shadow-black/40 border-b border-white/6'
+        : 'bg-transparent border-b border-transparent'
+    )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[4.5rem]">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 bg-orange-500 rounded-xl flex items-center justify-center shadow-sm group-hover:bg-orange-600 transition-colors shrink-0">
-              <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" aria-hidden="true">
-                <path d="M5 4h3v7l4-7h3l-4 7h4l-5 9V13H6l4-4H5V4z" fill="white" />
-              </svg>
-            </div>
-            <div className="flex flex-col leading-none">
-              <span className="font-black text-gray-900 text-base tracking-[0.08em] uppercase">HAKA</span>
-              <span className="text-orange-500 text-[10px] font-bold tracking-[0.2em] uppercase">Egypt</span>
-            </div>
+          <Link href="/" className="flex items-center group">
+            {/* HAKA logo — use actual logo file if placed at /public/haka-logo.png */}
+            <img
+              src="/haka-logo.svg"
+              alt="HAKA Egypt"
+              className="h-8 w-auto"
+              style={{ filter: 'drop-shadow(0 0 8px rgba(220,38,38,0.2))' }}
+            />
           </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
+              <Link key={link.href} href={link.href}
                 className={cn(
-                  'px-4 py-2 rounded-xl text-sm font-medium transition-colors',
+                  'px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200',
                   pathname === link.href
-                    ? 'text-orange-500 bg-orange-50'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    ? 'text-red-400 bg-red-500/10'
+                    : 'text-white/60 hover:text-white hover:bg-white/6'
                 )}
               >
                 {link.label}
@@ -73,29 +68,31 @@ export function Navbar() {
               <>
                 {profile?.is_admin && (
                   <Link href="/admin">
-                    <Button variant="ghost" size="sm" className="gap-1.5">
+                    <Button variant="ghost" size="sm" className="gap-1.5 text-white/70 hover:text-white hover:bg-white/10">
                       <Shield className="w-4 h-4" /> Admin
                     </Button>
                   </Link>
                 )}
                 <Link href="/profile">
-                  <Button variant="ghost" size="sm" className="gap-1.5">
+                  <Button variant="ghost" size="sm" className="gap-1.5 text-white/70 hover:text-white hover:bg-white/10">
                     <User className="w-4 h-4" />
                     {profile?.full_name?.split(' ')[0] || 'Profile'}
                   </Button>
                 </Link>
-                <Button variant="outline" size="sm" onClick={signOut} className="gap-1.5">
-                  <LogOut className="w-4 h-4" /> Sign out
+                <Button variant="outline" size="sm" onClick={signOut} className="gap-1.5 border-white/15 text-white/70 hover:bg-white/10 hover:text-white">
+                  <LogOut className="w-4 h-4" />
                 </Button>
               </>
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="ghost" size="sm">Sign in</Button>
+                  <button className="px-4 py-2 text-sm font-medium rounded-lg text-white/60 hover:text-white hover:bg-white/6 transition-colors">
+                    Sign in
+                  </button>
                 </Link>
-                <Link href="/register">
-                  <button className="px-5 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold rounded-full transition-all duration-200 shadow-sm hover:shadow-md active:scale-95">
-                    Join Free
+                <Link href="/events">
+                  <button className="px-5 py-2 bg-red-600 hover:bg-red-500 text-white text-sm font-bold rounded-lg transition-all duration-200 shadow-md shadow-red-900/30 active:scale-95">
+                    Find a Match
                   </button>
                 </Link>
               </>
@@ -103,67 +100,48 @@ export function Navbar() {
           </div>
 
           {/* Mobile toggle */}
-          <button
-            className="md:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          <button className="md:hidden p-2 rounded-lg hover:bg-white/8 transition-colors" onClick={() => setMobileOpen(!mobileOpen)}>
+            {mobileOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
           </button>
         </div>
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden border-t border-gray-100 py-3 space-y-1">
+          <div className="md:hidden border-t border-white/6 py-3 space-y-1 bg-[#06100a]/98 backdrop-blur-md rounded-b-2xl">
             {navLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
+              <Link key={link.href} href={link.href}
                 className={cn(
                   'flex items-center px-4 py-2.5 text-sm font-medium rounded-xl transition-colors',
-                  pathname === link.href
-                    ? 'text-orange-500 bg-orange-50'
-                    : 'text-gray-700 hover:bg-gray-50'
+                  pathname === link.href ? 'text-red-400 bg-red-500/10' : 'text-white/60 hover:text-white hover:bg-white/6'
                 )}
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-
-            <div className="pt-2 border-t border-gray-100">
+            <div className="pt-2 border-t border-white/6">
               {user ? (
                 <>
-                  <Link
-                    href="/profile"
-                    className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-xl"
-                    onClick={() => setMobileOpen(false)}
-                  >
+                  <Link href="/profile" className="flex items-center gap-2 px-4 py-2.5 text-sm text-white/60 hover:text-white hover:bg-white/6 rounded-xl" onClick={() => setMobileOpen(false)}>
                     <User className="w-4 h-4" /> Profile
                   </Link>
                   {profile?.is_admin && (
-                    <Link
-                      href="/admin"
-                      className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-xl"
-                      onClick={() => setMobileOpen(false)}
-                    >
+                    <Link href="/admin" className="flex items-center gap-2 px-4 py-2.5 text-sm text-white/60 hover:text-white hover:bg-white/6 rounded-xl" onClick={() => setMobileOpen(false)}>
                       <Shield className="w-4 h-4" /> Admin
                     </Link>
                   )}
-                  <button
-                    className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 rounded-xl"
-                    onClick={() => { signOut(); setMobileOpen(false); }}
-                  >
+                  <button className="flex items-center gap-2 w-full px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 rounded-xl" onClick={() => { signOut(); setMobileOpen(false); }}>
                     <LogOut className="w-4 h-4" /> Sign out
                   </button>
                 </>
               ) : (
                 <div className="flex gap-2 px-4 pt-1">
                   <Link href="/login" className="flex-1" onClick={() => setMobileOpen(false)}>
-                    <Button variant="outline" size="sm" className="w-full">Sign in</Button>
+                    <Button variant="outline" size="sm" className="w-full border-white/15 text-white hover:bg-white/10">Sign in</Button>
                   </Link>
-                  <Link href="/register" className="flex-1" onClick={() => setMobileOpen(false)}>
-                    <button className="w-full py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold rounded-full transition-colors">
-                      Join Free
+                  <Link href="/events" className="flex-1" onClick={() => setMobileOpen(false)}>
+                    <button className="w-full py-1.5 bg-red-600 hover:bg-red-500 text-white text-sm font-bold rounded-lg transition-colors">
+                      Find Match
                     </button>
                   </Link>
                 </div>

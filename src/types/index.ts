@@ -20,6 +20,15 @@ export interface Event {
   created_at: string;
   rsvp_count?: number;
   user_rsvp?: RSVPStatus | null;
+  // Payment & community group fields
+  price?: number | null;
+  payment_url?: string | null;
+  group_url?: string | null;
+  // Padel-specific fields
+  padel_level?: PadelLevel | null;
+  court_name?: string | null;
+  duration_hours?: number | null;
+  whatsapp_group_id?: string | null;
 }
 
 export interface RSVP {
@@ -31,6 +40,23 @@ export interface RSVP {
 }
 
 export type RSVPStatus = 'attending' | 'waitlist' | 'cancelled';
+
+export type PadelLevel = 'Beginner' | 'Intermediate' | 'Advanced' | 'All Levels';
+
+export interface PadelRegistration {
+  // Step 1 — Basic Info
+  name: string;
+  phone: string; // WhatsApp number (Egyptian format)
+  email?: string;
+  // Step 2 — Level Assessment
+  experience: 'new' | 'casual' | 'regular' | 'advanced';
+  canRally: 'no' | 'sometimes' | 'yes';
+  playType: 'practice' | 'friendly' | 'competitive';
+  selfRating: 1 | 2 | 3 | 4 | 5;
+  // Computed
+  level: PadelLevel;
+  event_id: string;
+}
 
 export interface Profile {
   id: string;

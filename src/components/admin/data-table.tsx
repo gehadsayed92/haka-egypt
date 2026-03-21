@@ -1,18 +1,21 @@
 import { cn } from '@/lib/utils';
 
-interface Column<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface Column<T = any> {
   key: keyof T | string;
   header: string;
   render?: (row: T) => React.ReactNode;
 }
 
-interface DataTableProps<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface DataTableProps<T = any> {
   columns: Column<T>[];
   data: T[];
   className?: string;
 }
 
-export function DataTable<T extends Record<string, unknown>>({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function DataTable<T extends Record<string, any>>({
   columns,
   data,
   className,

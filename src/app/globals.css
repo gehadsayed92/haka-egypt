@@ -5,8 +5,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
+  /* HAKA Brand Colors */
+  --bg-base:    #06100a;   /* deep forest green — primary background */
+  --bg-section: #07130b;   /* slightly lighter section alternate */
+  --bg-card:    #0d1c11;   /* card surface */
+  --bg-raised:  #111f15;   /* elevated elements */
+  --accent-red: #dc2626;
 }
 
 html {
@@ -14,8 +18,8 @@ html {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
+  background: var(--bg-base);
+  color: #ffffff;
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
