@@ -5,7 +5,13 @@ All secrets loaded from environment variables. Never hardcoded.
 
 import os
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Optional
+
+from dotenv import load_dotenv
+
+# Load .env from the backend directory
+load_dotenv(Path(__file__).parent / ".env")
 
 
 @dataclass
