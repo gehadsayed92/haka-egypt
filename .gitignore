@@ -33,6 +33,15 @@ yarn-error.log*
 # misc junk
 src/app/New Text Document.txt
 
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+
+# sqlite
+*.db
+
 # claude settings
 .claude/settings.local.json
 
