@@ -1,0 +1,29 @@
+store_name,date,revenue,transactions,avg_ticket
+Cilantro Zamalek,2026-04-14,52000,340,152.94
+Cilantro Zamalek,2026-04-13,48500,310,156.45
+Cilantro Zamalek,2026-04-12,51200,328,156.10
+Cilantro Zamalek,2026-04-11,49800,320,155.63
+Cilantro Zamalek,2026-04-10,53100,345,153.91
+Cilantro Zamalek,2026-04-09,47200,305,154.75
+Cilantro Zamalek,2026-04-08,50800,330,153.94
+Cilantro Maadi,2026-04-14,31000,210,147.62
+Cilantro Maadi,2026-04-13,42500,280,151.79
+Cilantro Maadi,2026-04-12,44100,290,152.07
+Cilantro Maadi,2026-04-11,43200,285,151.58
+Cilantro Maadi,2026-04-10,41800,275,152.00
+Cilantro Maadi,2026-04-09,40500,268,151.12
+Cilantro Maadi,2026-04-08,43900,288,152.43
+Cilantro Heliopolis,2026-04-14,61500,395,155.70
+Cilantro Heliopolis,2026-04-13,58200,375,155.20
+Cilantro Heliopolis,2026-04-12,59800,385,155.32
+Cilantro Heliopolis,2026-04-11,57500,370,155.41
+Cilantro Heliopolis,2026-04-10,62100,400,155.25
+Cilantro Heliopolis,2026-04-09,55800,360,155.00
+Cilantro Heliopolis,2026-04-08,60200,388,155.15
+Cilantro New Cairo,2026-04-14,47800,305,156.72
+Cilantro New Cairo,2026-04-13,45200,290,155.86
+Cilantro New Cairo,2026-04-12,46500,298,156.04
+Cilantro New Cairo,2026-04-11,44800,288,155.56
+Cilantro New Cairo,2026-04-10,48200,310,155.48
+Cilantro New Cairo,2026-04-09,43100,278,155.04
+Cilantro New Cairo,2026-04-08,46900,302,155.30
